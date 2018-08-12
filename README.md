@@ -1,6 +1,6 @@
 # vista-panel
 
-Web UI for [IPDataTel](https://ipdatatel.com)-equipped Vista 20p (and probably others) security system.
+Web UI for [IPDataTel](https://ipdatatel.com)-equipped [Honeywell Vista 20p](https://www.security.honeywell.com/canada/products/intruder-detection-systems/control-panel/burglary/ademco-vista/14958.html) (and probably others) security system.
 
 Works with (and requires account with) [AlarmDealer](https://alarmdealer.com).
 
