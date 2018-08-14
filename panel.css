@@ -26,7 +26,7 @@ body {
 
 .lcd-status #lcd-ready { color: green; }
 .lcd-status #lcd-armed { color: red; }
-.lcd-status #lcd-bypass { color: green; }
+.lcd-status #lcd-bypass { color: blue; }
 .lcd-status #lcd-comm { color: orange; }
 
 .keypad {

@@ -4,67 +4,66 @@
 		<script src="secrets.js"></script>
 		<link rel="stylesheet" type="text/css" href="panel.css">
 	</head>
-<body>
+	<body>
+		<div class="keypad">
+			<div id="status">
+				Initializing
+				<br>virtual keypad...
+			</div>
 
-	<div class="keypad">
-		<div id="status">
-			Initializing
-			<br>virtual keypad...
+			<div class="lcd-status">
+				<div id="lcd-ready"></div>
+				<div id="lcd-armed"></div>
+				<div id="lcd-bypass"></div>
+				<div id="lcd-comm"></div>
+			</div>
+
+			<div class="row">
+				<div id="key-1" class="button" onclick="button_click_handler('1')">1<span class="label">Off</span></div>
+				<div id="key-2" class="button" onclick="button_click_handler('2')">2<span class="label">Away</span></div>
+				<div id="key-3" class="button" onclick="button_click_handler('3')">3<span class="label">Stay</span></div>
+			</div>
+			<div class="row">
+				<div id="key-4" class="button" onclick="button_click_handler('4')">4<span class="label">Max</span></div>
+				<div id="key-5" class="button" onclick="button_click_handler('5')">5<span class="label">Test</span></div>
+				<div id="key-6" class="button" onclick="button_click_handler('6')">6<span class="label">Bypass</span></div>
+			</div>
+			<div class="row">
+				<div id="key-7" class="button" onclick="button_click_handler('7')">7<span class="label">Inst</span></div>
+				<div id="key-8" class="button" onclick="button_click_handler('8')">8<span class="label">Code</span></div>
+				<div id="key-9" class="button" onclick="button_click_handler('9')">9<span class="label">Chime</span></div>
+			</div>
+			<div class="row">
+				<div id="key-star" class="button" onclick="button_click_handler('*')">*<span class="label">Ready</span></div>
+				<div id="key-0" class="button" onclick="button_click_handler('0')">0<span class="label"></span></div>
+				<div id="key-hashs" class="button" onclick="button_click_handler('#')">#<span class="label"></span></div>
+			</div>
 		</div>
 
-		<div class="lcd-status">
-			<div id="lcd-ready"></div>
-			<div id="lcd-armed"></div>
-			<div id="lcd-bypass"></div>
-			<div id="lcd-comm"></div>
-		</div>
+		<script>
+			var keyPad = new VistaKeypad(
+				new WebSocket("wss://alarmdealer.com:8800/ws"), 
+				window.username,
+				window.epass,
+				window.device_id
+			);
 
-		<div class="row">
-			<div id="key-1" class="button" onclick="button_click_handler('1')">1<span class="label">Off</span></div>
-			<div id="key-2" class="button" onclick="button_click_handler('2')">2<span class="label">Away</span></div>
-			<div id="key-3" class="button" onclick="button_click_handler('3')">3<span class="label">Stay</span></div>
-		</div>
-		<div class="row">
-			<div id="key-4" class="button" onclick="button_click_handler('4')">4<span class="label">Max</span></div>
-			<div id="key-5" class="button" onclick="button_click_handler('5')">5<span class="label">Test</span></div>
-			<div id="key-6" class="button" onclick="button_click_handler('6')">6<span class="label">Bypass</span></div>
-		</div>
-		<div class="row">
-			<div id="key-7" class="button" onclick="button_click_handler('7')">7<span class="label">Inst</span></div>
-			<div id="key-8" class="button" onclick="button_click_handler('8')">8<span class="label">Code</span></div>
-			<div id="key-9" class="button" onclick="button_click_handler('9')">9<span class="label">Chime</span></div>
-		</div>
-		<div class="row">
-			<div id="key-star" class="button" onclick="button_click_handler('*')">*<span class="label">Ready</span></div>
-			<div id="key-0" class="button" onclick="button_click_handler('0')">0<span class="label"></span></div>
-			<div id="key-hashs" class="button" onclick="button_click_handler('#')">#<span class="label"></span></div>
-		</div>
-	</div>
-
-	<script>
-		var keyPad = new VistaKeypad(
-			new WebSocket("wss://alarmdealer.com:8800/ws"), 
-			window.username,
-			window.epass,
-			window.device_id
-		);
-
-		function get_button_el(key) {
-				let key_name = key==='*' ? 'star' : key==='#'? 'hash' : key;
-				return document.getElementById('key-'+key_name) || undefined;
-		}
-
-		function button_click_handler(key) {
-			keyPad.keypress(key, get_button_el(key));
-		}
-
-		function keybaord_handler(event) {
-			if ("0123456789*#".indexOf(event.key) !== -1) {
-				keyPad.keypress(event.key, get_button_el(event.key));
+			function get_button_el(key) {
+					let key_name = key==='*' ? 'star' : key==='#'? 'hash' : key;
+					return document.getElementById('key-'+key_name) || undefined;
 			}
-		}
 
-		window.addEventListener("keypress", keybaord_handler, false);
-	</script>
-</body>
+			function button_click_handler(key) {
+				keyPad.keypress(key, get_button_el(key));
+			}
+
+			function keybaord_handler(event) {
+				if ("0123456789*#".indexOf(event.key) !== -1) {
+					keyPad.send(event.key, get_button_el(event.key));
+				}
+			}
+
+			window.addEventListener("keypress", keybaord_handler, false);
+		</script>
+	</body>
 </html>

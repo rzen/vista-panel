@@ -125,11 +125,6 @@ class  AbstractKeypad {
 		this.pending_request_status = null;
 	}
 
-	keypress (key) {
-		// if (this.websocket.readyState !== 1) return;  // todo: redundant?
-		this.send(key);
-	}
-
 	message_handler (event) {
 		let data = JSON.parse(event.data);
 
@@ -261,8 +256,8 @@ class VistaKeypad extends AbstractKeypad {
 		document.getElementById('lcd-comm').innerHTML = lcd_communicating ? 'Comm' : '';
 	}
 
-	keypress (key, el) {
-		super.keypress(key);
+	send (key, el) {
+		super.send(key);
 
 		if (el) {
 			el.classList.add('pressed');
