@@ -7,7 +7,7 @@ body {
 	font-size: 2em;
 	padding: .5em;
 	background: radial-gradient(closest-corner, #9c9, #7a7);
-	border-radius: .5em;
+	border-radius: .3em;
 }
 
 .lcd-status {
@@ -32,7 +32,7 @@ body {
 .keypad {
 	display: inline-block;
 	padding: 1em;
-	border-radius: 2em;
+	border-radius: 1em;
 	background: linear-gradient(to bottom right, #eee, #fff, #efefef);
 }
 
@@ -43,7 +43,7 @@ body {
 	display: inline-block;
 	padding: .2em .2em .2em .5em;
 	margin: .2em;
-	border-radius: .5em;
+	border-radius: .3em;
 	background: radial-gradient(circle, #eee, #ddd);
 	cursor: hand;
 }
@@ -54,9 +54,9 @@ body {
 }
 
 .keypad .button .label {
-	width: 80px;
+	width: 4em;
 	display: inline-block;
-	padding: 4px;
+	padding: .1em;
 	font-size: .6em;
 	font-weight: normal;
 	text-align: right;
