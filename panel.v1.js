@@ -1,7 +1,3 @@
-// class UiKeypad extends AbstractKeypad {
-
-// }
-
 class  AbstractKeypad {
 
 	get MAX_TIME_BETWEEN_KEY_PRESSES() { return 2*1000; }  // TODO: this is dumb
@@ -188,7 +184,6 @@ class  AbstractKeypad {
 				// TODO: there's got to be a better way of handling this
 			}
 		}
-
 
 		// message contains a payload
 		// we'll parse it and apply cute heuristics
