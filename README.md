@@ -30,6 +30,14 @@ I'm going to reach out to them in a few weeks with an offer to use this applet f
 
 My ultimate goal is to integrate access to Vista control panel into [Home Assistant](https://www.home-assistant.io/). 
 
+## Browser compatibility
+
+Successfully tested with:
+
+- Safari Version 11.1.2 (12605.3.8.1)
+- Chrome Version 67.0.3396.87 (Official Build) (64-bit)
+- Firefox 60.0.2 (64-bit)
+
 ## Compatibility with other vendors
 
 My understanding is this integration is possible via [IPDateTel](https://ipdatatel.com) a cellular network communication device. I own an older version of what looks like [this guy](https://ipdatatel.com/products/cellular-alarm-communicators/).

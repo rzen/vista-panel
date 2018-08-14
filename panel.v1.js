@@ -7,7 +7,7 @@ class  AbstractKeypad {
 	get pending_request_status () { return this._pending_request_status; }
 	set pending_request_status (pending_request_status) { this._pending_request_status = pending_request_status; }
 	get request_balance () { return this._request_balance || 0; }
-	set request_balance (balance) { this._request_balance = balance; this.lcd_communicating = balance > 0; }
+	set request_balance (balance) { this._request_balance = balance; this.lcd_communicating = balance > 0 || this.pending_request_status; }
 	get focused () { return this._focused; }
 	set focused (focused) { this._focused = focused; }
 	get logged_in () { return this._logged_in; }

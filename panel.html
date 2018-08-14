@@ -41,29 +41,36 @@
 		</div>
 
 		<script>
-			var keyPad = new VistaKeypad(
-				new WebSocket("wss://alarmdealer.com:8800/ws"), 
-				window.username,
-				window.epass,
-				window.device_id
-			);
+			if (!window.WebSocket) {
+				alert('Your browser doesnt support WebSocket. Please try another browser.');
+				document.getElementById('status').innerHTML = 'Not available<br>WebSocket not supported.'
+				function button_click_handler(key) {}
+			} else {
+				var keyPad = new VistaKeypad(
+					new WebSocket("wss://alarmdealer.com:8800/ws"), 
+					window.username,
+					window.epass,
+					window.device_id
+				);
 
-			function get_button_el(key) {
-					let key_name = key==='*' ? 'star' : key==='#'? 'hash' : key;
-					return document.getElementById('key-'+key_name) || undefined;
-			}
-
-			function button_click_handler(key) {
-				keyPad.keypress(key, get_button_el(key));
-			}
-
-			function keybaord_handler(event) {
-				if ("0123456789*#".indexOf(event.key) !== -1) {
-					keyPad.send(event.key, get_button_el(event.key));
+				function get_button_el(key) {
+						let key_name = key==='*' ? 'star' : key==='#'? 'hash' : key;
+						return document.getElementById('key-'+key_name) || undefined;
 				}
+
+				function button_click_handler(key) {
+					keyPad.keypress(key, get_button_el(key));
+				}
+
+				function keybaord_handler(event) {
+					if ("0123456789*#".indexOf(event.key) !== -1) {
+						keyPad.send(event.key, get_button_el(event.key));
+					}
+				}
+
+				window.addEventListener("keypress", keybaord_handler, false);
 			}
 
-			window.addEventListener("keypress", keybaord_handler, false);
 		</script>
 	</body>
 </html>
