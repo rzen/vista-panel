@@ -49,15 +49,11 @@ class  AbstractKeypad {
 		window.onbeforeunload = function() {
 		    this.websocket.onclose = function () {};
 		    this.websocket.close();
-		};
+		}.bind(this);
 
 		// when websocket closes show appropriate message on the lcd screen
 		this.websocket.onclose = function (event) {
-			console.log('Connection closed');
-				this.lcd = [
-				'Connection Closed',
-				''
-			];
+			this.lcd = [ 'Connection Closed', '' ];
 		}.bind(this);
 
 		// handle initialization on websocket open
