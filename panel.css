@@ -1,9 +1,9 @@
 body {
 	text-align: center;
+	font-family: monospace;
 }
 
 #status {
-	font-family: monospace;
 	font-size: 2em;
 	padding: .5em;
 	background: radial-gradient(closest-corner, #9c9, #7a7);
@@ -14,28 +14,20 @@ body {
 	height: 2em;
 	width: 100%;
 	padding: 1em 0;
-	font-family: monospace;
-	text-transform: uppercase;
 }
 
 .lcd-status * {
-	width: 5em;
+	width: 4em;
 	display: inline-block;
 	font-weight: bold;
 	font-size: 1.5em;
+	text-transform: uppercase;
 }
 
-.lcd-status #lcd-ready {
-	color: green;
-}
-
-.lcd-status #lcd-armed {
-	color: red;
-}
-
-.lcd-status #lcd-bypass {
-	color: green;
-}
+.lcd-status #lcd-ready { color: green; }
+.lcd-status #lcd-armed { color: red; }
+.lcd-status #lcd-bypass { color: green; }
+.lcd-status #lcd-comm { color: orange; }
 
 .keypad {
 	display: inline-block;
@@ -44,12 +36,9 @@ body {
 	background: linear-gradient(to bottom right, #eee, #fff, #efefef);
 }
 
-.keypad .row {
-	width: 100%;
-}
+.keypad .row { width: 100%; }
 
 .keypad .button {
-	font-family: monospace;
 	font-size: 2.5em;
 	display: inline-block;
 	padding: .2em .2em .2em .5em;
@@ -59,13 +48,17 @@ body {
 	cursor: hand;
 }
 
+.keypad .button.pressed {
+	color: #eee;
+	background: radial-gradient(circle, #666, #777, #888);
+}
+
 .keypad .button .label {
 	width: 80px;
+	display: inline-block;
+	padding: 4px;
 	font-size: .6em;
 	font-weight: normal;
 	text-align: right;
-	text-align: right;
 	text-transform: uppercase;
-	display: inline-block;
-	padding: 4px;
 }
