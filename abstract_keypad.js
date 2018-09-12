@@ -7,7 +7,7 @@ class  AbstractKeypad {
 	get pending_request_status () { return this._pending_request_status; }
 	set pending_request_status (pending_request_status) { this._pending_request_status = pending_request_status; }
 	get request_balance () { return this._request_balance || 0; }
-	set request_balance (balance) { this._request_balance = balance; this.lcd_communicating = balance > 0 || this.pending_request_status; }
+	set request_balance (balance) { this._request_balance = balance; this.lcd_comm = balance > 0 || this.pending_request_status; }
 	get focused () { return this._focused; }
 	set focused (focused) { this._focused = focused; }
 	get logged_in () { return this._logged_in; }
@@ -22,17 +22,19 @@ class  AbstractKeypad {
 	set lcd_armed (lcd_armed) { this._lcd_armed = lcd_armed; }
 	get lcd_bypass () { return this._lcd_bypass || false; }
 	set lcd_bypass (lcd_bypass) { this._lcd_bypass = lcd_bypass; }
-	get lcd_communicating () { return this._lcd_communicating || false; }
-	set lcd_communicating (lcd_communicating) { this._lcd_communicating = lcd_communicating; }
+	get lcd_comm () { return this._lcd_communicating || false; }
+	set lcd_comm (lcd_comm) { this._lcd_communicating = lcd_comm; }
 	get websocket () { return this._websocket; }
 	set websocket (websocket) { this._websocket = websocket; }
 	get username () { return this._username; }
 	set username (username) { this._username = username; }
 	get password () { return this._password; }
 	set password (password) { this._password = password; }
+	get pass_hashed () { return this._pass_hashed; }
+	set pass_hashed (pass_hashed) { this._pass_hashed = pass_hashed; }
 	get device_id () { return this._device_id; }
 	set device_id (device_id) { this._device_id = device_id; }
-	
+
 	// ex:
 	// new Panel(new WebSocket("wss://alarmdealer.com:8800/ws"), 'johndoe', '234234234234', '010121232032')
 	constructor (websocket, username, password, device_id) {
@@ -41,6 +43,7 @@ class  AbstractKeypad {
 		this.websocket = websocket;
 		this.username = username;
 		this.password = password;
+		this.pass_hashed = 'true';  // sic!
 		this.device_id = device_id;
 
 		this.cmd_queue = [];
@@ -219,47 +222,9 @@ class  AbstractKeypad {
 			input: {
 				username: this.username,
 				epass: this.password,
-				pass_hashed: 'true',  // server wants a string, go figure..
+				pass_hashed: this.pass_hashed,  // server wants a string, go figure..
 				user_type: 'user'
 			}
 		});
-	}
-}
-
-class VistaKeypad extends AbstractKeypad {
-	set lcd (lcd) {
-		super.lcd = lcd;
-		document.getElementById('status').innerHTML = `${lcd[0] || ''}&nbsp;<br>${lcd[1] || ''}&nbsp;`;
-	}
-
-	set lcd_ready (lcd_ready) {
-		super.lcd_ready = lcd_ready;
-		document.getElementById('lcd-ready').innerHTML = lcd_ready ? 'Ready' : '';
-	}
-	
-	set lcd_armed (lcd_armed) {
-		super.lcd_armed = lcd_armed;
-		document.getElementById('lcd-armed').innerHTML = lcd_armed ? 'Armed' : '';
-	}
-
-	set lcd_bypass (lcd_bypass) {
-		super.lcd_bypass = lcd_bypass;
-		document.getElementById('lcd-bypass').innerHTML = lcd_bypass ? 'Bypass' : '';
-	}
-
-	set lcd_communicating (lcd_communicating) {
-		super.lcd_communicating = lcd_communicating;
-		document.getElementById('lcd-comm').innerHTML = lcd_communicating ? 'Comm' : '';
-	}
-
-	send (key, el) {
-		super.send(key);
-
-		if (el) {
-			el.classList.add('pressed');
-			setTimeout(function () {
-				el.classList.remove('pressed');
-			}, 200);
-		}
 	}
 }
